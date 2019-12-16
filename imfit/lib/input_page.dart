@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:imfit/icon_content.dart';
+import 'package:imfit/review_page.dart';
 import 'reusable_card.dart';
 
 const activeCardColor = Colors.blueAccent;
-const inactiveCardColor = Colors.white;
+const inactiveCardColor = Colors.white70;
 enum gender { male, female }
 
 class InputPage extends StatefulWidget {
@@ -43,10 +44,6 @@ class _InputPageState extends State<InputPage> {
                     setState(() {
                       selectedGender = gender.male;
                     });
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Height()),
-                    );
                   },
                   child: ReusableCard(
                     colour: selectedGender == gender.male
@@ -68,10 +65,6 @@ class _InputPageState extends State<InputPage> {
                     setState(() {
                       selectedGender = gender.female;
                     });
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Height()),
-                    );
                   },
                   child: ReusableCard(
                     colour: selectedGender == gender.female
@@ -88,6 +81,22 @@ class _InputPageState extends State<InputPage> {
                 ),
               ),
             ],
+          ),
+          ReusableCard(
+            colour: Colors.blue,
+            cardChild: RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: new Text('Add Height'),
+              padding: const EdgeInsets.all(8.0),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Height()),
+                );
+              },
+            ),
+            title: true,
           ),
         ],
       ),
@@ -135,20 +144,30 @@ class _HeightState extends State<Height> {
                 _duelCommandment = values;
               });
             },
-            onChangeEnd: (double values) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Weight()),
-              );
-            },
           ),
           ReusableCard(
             colour: Colors.blue,
             cardChild: Text('$_duelCommandment',
                 style: TextStyle(
                   color: Colors.blue,
-                  fontSize: 40,
+                  fontSize: 30,
                 )),
+            title: true,
+          ),
+          ReusableCard(
+            colour: Colors.blue,
+            cardChild: RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: new Text('Add Weight'),
+              padding: const EdgeInsets.all(8.0),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Weight()),
+                );
+              },
+            ),
             title: true,
           ),
         ],
@@ -203,8 +222,97 @@ class _WeightState extends State<Weight> {
             cardChild: Text('$_duelCommandment',
                 style: TextStyle(
                   color: Colors.blue,
-                  fontSize: 40,
+                  fontSize: 30,
                 )),
+            title: true,
+          ),
+          ReusableCard(
+            colour: Colors.blue,
+            cardChild: RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: new Text('Add Age'),
+              padding: const EdgeInsets.all(8.0),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Age()),
+                );
+              },
+            ),
+            title: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Age extends StatefulWidget {
+  @override
+  _AgeState createState() => _AgeState();
+}
+
+class _AgeState extends State<Age> {
+  @override
+  var _duelCommandment = 30.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('I M Fit'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          ReusableCard(
+            colour: Colors.blue,
+            cardChild: Text('Age',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 50,
+                )),
+            title: true,
+          ),
+          Slider(
+            value: _duelCommandment.toDouble(),
+            divisions: 85,
+            min: 15,
+            max: 100,
+            label: '$_duelCommandment',
+            onChanged: (double values) {
+              print(values);
+              setState(() {
+                _duelCommandment = values;
+              });
+            },
+          ),
+          ReusableCard(
+            colour: Colors.blue,
+            cardChild: Text('$_duelCommandment',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 30,
+                )),
+            title: true,
+          ),
+          ReusableCard(
+            colour: Colors.blue,
+            cardChild: RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: new Text('Review'),
+              padding: const EdgeInsets.all(8.0),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ReviewPage()),
+                );
+              },
+            ),
             title: true,
           ),
         ],
